@@ -54,6 +54,6 @@ objects:
         type: Git
       strategy:
         dockerStrategy:
-          dockerfilePath: docker/dockerfile
+          dockerfilePath: docker/dockerfile.release
         type: Docker
       triggers: []
