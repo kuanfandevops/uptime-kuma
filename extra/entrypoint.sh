@@ -16,7 +16,16 @@ files_ownership () {
 # echo "==> Performing startup jobs and maintenance tasks"
 # files_ownership
 
-echo "==> Starting application with user $PUID group $PGID"
+# echo "==> Starting application with user $PUID group $PGID"
 
-# --clear-groups Clear supplementary groups.
-exec setpriv --reuid "$PUID" --regid "$PGID" --clear-groups "$@"
+# # --clear-groups Clear supplementary groups.
+# exec setpriv --reuid "$PUID" --regid "$PGID" --clear-groups "$@"
+
+# added for Openshift
+current_uid=$(id -u)
+if [ "$PUID" = "0" ] || [ "$current_uid" != "0" ]; then
+  echo "==> Starting application as current user $current_uid"
+  exec "$@"
+else
+  exec setpriv --reuid "$PUID" --regid "$PGID" --clear-groups "$@"
+fi
