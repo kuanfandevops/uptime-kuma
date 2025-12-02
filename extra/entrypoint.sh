@@ -12,8 +12,9 @@ files_ownership () {
     chown -hRc "$PUID":"$PGID" /app/data
 }
 
-echo "==> Performing startup jobs and maintenance tasks"
-files_ownership
+# remove tow lines for Openshift
+# echo "==> Performing startup jobs and maintenance tasks"
+# files_ownership
 
 echo "==> Starting application with user $PUID group $PGID"
 
